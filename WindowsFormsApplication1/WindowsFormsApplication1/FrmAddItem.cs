@@ -31,8 +31,8 @@ namespace WindowsFormsApplication1
             {
 
                 //Read ItemTypeId from table
-                string connectionString = "Data Source=Neevan; Initial Catalog=Test; Integrated Security=True";
-                // string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
+                //string connectionString = "Data Source=Neevan; Initial Catalog=Test; Integrated Security=True";
+                string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
                 SqlConnection con = new SqlConnection(connectionString);
                 con.Open();
                 string selectQuery = "Select ItemTypeID From tblItemType where ItemType='" + cbItemType.Text +"'";
