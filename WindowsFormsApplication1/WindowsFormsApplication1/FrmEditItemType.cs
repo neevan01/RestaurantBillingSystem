@@ -15,48 +15,32 @@ namespace WindowsFormsApplication1
 {
     public partial class FrmEditItemType : Form
     {
+        public DataLayer dll = new DataLayer();
         public FrmEditItemType()
         {
             InitializeComponent();
         }
 
-        private void frmEditItemType_Load(object sender, EventArgs e)
+        private void FrmEditItemType_Load(object sender, EventArgs e)
         {
-            fillGridView();
+            FillGridView();
         }
 
-        private void fillGridView()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string viewQuery = "Select ItemType,ItemTypeID From tblItemType";
-            SqlCommand cmd = new SqlCommand(viewQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            cmd.ExecuteNonQuery();
-            con.Close();
-
+        private void FillGridView()
+        {            
+            string viewQuery = "Select ItemType,ItemTypeID From tblItemType";            
             //Fill data grid view with data table
-            dgvEditItemType.DataSource = dt;
+            dgvEditItemType.DataSource = dll.DataReturn(viewQuery);
 
         }
 
 
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void BtnSearch_Click(object sender, EventArgs e)
         {
-            //Search From Item Type Table 
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string selectQuery = "Select * From tblItemType where ItemType='" + txtItemType.Text + "'";
-            SqlCommand cmd = new SqlCommand(selectQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
+            //Search From Item Type Table             
+            string selectQuery = "Select * From tblItemType where ItemType='" + txtItemType.Text + "'";            
+            DataTable dt = dll.DataReturn(selectQuery);                      
 
             if (dt.Rows.Count > 0)
             {
@@ -71,7 +55,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void BtnUpdate_Click(object sender, EventArgs e)
         {
             if (txtNewItemType.Text == "")
             {
@@ -79,18 +63,13 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                //Update Item Type Name in Item Type Table 
-                string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-                SqlConnection con = new SqlConnection(connectionString);
-                con.Open();
+                //Update Item Type Name in Item Type Table                 
                 string updateQuery = "Update tblItemType set ItemType='" + txtNewItemType.Text + "' where ItemTypeId='" + txtItemTypeID.Text + "'";
-                SqlCommand cmd = new SqlCommand(updateQuery, con);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
+                dll.DbConn(updateQuery);
                 MessageBox.Show("Item Type Updated Successfully");
-                btnUpdate.Enabled = true;
+                btnUpdate.Enabled = false;
                 DeleteAllTextBoxes();
+                FillGridView();
             }
         }
 
@@ -115,6 +94,7 @@ namespace WindowsFormsApplication1
         {
 
         }
+    
     }
 }
 

@@ -67,25 +67,24 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
-            
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.textBox1.Font = new System.Drawing.Font("Mistral", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox1.Location = new System.Drawing.Point(5, 46);
+            this.textBox1.Location = new System.Drawing.Point(-8, 46);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(952, 54);
             this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "                              ABC Restaurant           \r\n                 " +"  ";
+            this.textBox1.Text = "                              ABC Restaurant           \r\n                   ";
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(794, 1);
+            this.button1.Location = new System.Drawing.Point(781, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(163, 50);
             this.button1.TabIndex = 6;

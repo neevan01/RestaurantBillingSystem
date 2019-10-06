@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayer.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +126,11 @@
     <Compile Include="FrmViewItemType.Designer.cs">
       <DependentUpon>FrmViewItemType.cs</DependentUpon>
     </Compile>
+    <Compile Include="ItemTypeSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemTypeSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +191,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ItemTypeSet.xsc">
+      <DependentUpon>ItemTypeSet.xsd</DependentUpon>
+    </None>
+    <None Include="ItemTypeSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ItemTypeSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ItemTypeSet.xss">
+      <DependentUpon>ItemTypeSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

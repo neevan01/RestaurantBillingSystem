@@ -14,33 +14,18 @@ namespace WindowsFormsApplication1
 {
     public partial class FrmDeleteItemType : Form
     {
+        public DataLayer dll = new DataLayer();
         public FrmDeleteItemType()
         {
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void BtnSearch_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            //Search From Item Type Table 
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string selectQuery = "Select * From tblItemType where ItemTypeID='" + txtItemID.Text + "'";
-            SqlCommand cmd = new SqlCommand(selectQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
+            //Search From Item Type Table             
+            string query = "Select * From tblItemType where ItemTypeID='" + txtItemID.Text + "'";
+            GvItemType.DataSource = dll.DataReturn(query);
+            DataTable dt = dll.DataReturn(query);
             if (dt.Rows.Count > 0)
             {
                 txtItemType.Text = dt.Rows[0]["ItemType"].ToString();
@@ -50,23 +35,19 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("Item Type Not Available");
                 btnDelete.Enabled = false;
-             }
+            }
         }
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             //Delete Item Type Name in Item Type Table 
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string deleteQuery = "delete from tblItemType where ItemTypeID=" + txtItemID.Text + "";
-            SqlCommand cmd = new SqlCommand(deleteQuery, con);
-            cmd.ExecuteNonQuery();
-            con.Close();
 
+            string deleteQuery = "delete from tblItemType where ItemTypeID=" + txtItemID.Text + "";
+            MessageBox.Show("Are you sure to delete this item?");
+            dll.DbConn(deleteQuery);
             MessageBox.Show("Item Type Deleted Successfully");
             btnDelete.Enabled = false;
             DeleteAllTextBoes();
-            fillGridView();
+            GvItemType.DataSource = dll.DataReturn("Select * from tblItemType");
         }
 
         private void DeleteAllTextBoes()
@@ -75,35 +56,38 @@ namespace WindowsFormsApplication1
             txtItemType.Text = "";
         }
 
-        private void dgvDeleteItemType_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void FrmDeleteItemType_Load(object sender, EventArgs e)
         {
-
+            string Query = "select * from tblItemType";
+            GvItemType.DataSource = dll.DataReturn(Query);
+            //fillGridView();
         }
 
-        private void frmDeleteItemType_Load(object sender, EventArgs e)
+        private void txtItemID_KeyPress(object sender, KeyPressEventArgs e)
         {
-
-            fillGridView();
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
         }
 
-        private void fillGridView()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string viewQuery = "Select ItemTypeID,ItemType From tblItemType";
-            SqlCommand cmd = new SqlCommand(viewQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            cmd.ExecuteNonQuery();
-            con.Close();
+        //private void fillGridView()
+        //{
+        //    string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
+        //    SqlConnection con = new SqlConnection(connectionString);
+        //    con.Open();
+        //    string viewQuery = "Select ItemTypeID,ItemType From tblItemType";
+        //    SqlCommand cmd = new SqlCommand(viewQuery, con);
+        //    SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    cmd.ExecuteNonQuery();
+        //    con.Close();
 
-            //Fill data grid view with data table
-            dgvDeleteItemType.DataSource = dt;
-        }
+        //    //Fill data grid view with data table
+        //    GvItemType.DataSource = dt;
+        //}
 
     }
 
 }
-      

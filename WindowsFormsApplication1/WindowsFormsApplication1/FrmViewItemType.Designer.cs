@@ -29,34 +29,51 @@
         private void InitializeComponent()
         {
             this.dgvViewItemType = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewItemType)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvViewItemType
             // 
             this.dgvViewItemType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvViewItemType.Location = new System.Drawing.Point(13, 44);
+            this.dgvViewItemType.Location = new System.Drawing.Point(20, 68);
+            this.dgvViewItemType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvViewItemType.Name = "dgvViewItemType";
-            this.dgvViewItemType.Size = new System.Drawing.Size(340, 205);
+            this.dgvViewItemType.RowHeadersWidth = 62;
+            this.dgvViewItemType.Size = new System.Drawing.Size(489, 315);
             this.dgvViewItemType.TabIndex = 0;
-            this.dgvViewItemType.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // frmViewItemType
+            // label1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(65, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(370, 40);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Available Item Types";
+            // 
+            // FrmViewItemType
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 261);
+            this.ClientSize = new System.Drawing.Size(548, 402);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvViewItemType);
-            this.Name = "frmViewItemType";
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Name = "FrmViewItemType";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "View Item Type";
-            this.Load += new System.EventHandler(this.frmViewItemType_Load_1);
+            this.Load += new System.EventHandler(this.FrmViewItemType_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewItemType)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataGridView dgvViewItemType;
+        private System.Windows.Forms.Label label1;
     }
 }

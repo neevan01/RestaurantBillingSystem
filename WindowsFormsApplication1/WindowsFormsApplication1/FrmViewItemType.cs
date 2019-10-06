@@ -14,34 +14,22 @@ namespace WindowsFormsApplication1
 {
     public partial class FrmViewItemType : Form
     {
+        public DataLayer dll = new DataLayer();
         public FrmViewItemType()
         {
             InitializeComponent();
+        }       
+
+        private void FrmViewItemType_Load_1(object sender, EventArgs e)
+        {
+            FillGridView();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-    private void frmViewItemType_Load_1(object sender, EventArgs e)
-        {
-            fillGridView();
-        }
-
-        private void fillGridView()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string viewQuery = "Select * From tblItemType";
-            SqlCommand cmd = new SqlCommand(viewQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-
+        private void FillGridView()
+        {           
+            string viewQuery = "Select * From tblItemType";          
             //Fill data grid view with data table
-            dgvViewItemType.DataSource = dt;
+            dgvViewItemType.DataSource =dll.DataReturn(viewQuery) ;
         }
 
     }

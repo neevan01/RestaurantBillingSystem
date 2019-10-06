@@ -16,12 +16,13 @@ namespace WindowsFormsApplication1
 {
     public partial class FrmAddItemType : Form
     {
+        public DataLayer dll = new DataLayer();
         public FrmAddItemType()
         {
-            InitializeComponent();
+            InitializeComponent();                                
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             if (txtItemType.Text == "")
             {
@@ -29,21 +30,26 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                //Insert Item Type to Database
-                string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-                SqlConnection con = new SqlConnection(connectionString);
-                con.Open();
+                //Insert Item Type to Database                               
                 string insertQuery = "Insert into tblItemType values('" + txtItemType.Text + "')";
-                SqlCommand cmd = new SqlCommand(insertQuery, con);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-                MessageBox.Show("Item Type inserted successfully");
+                dll.DbConn(insertQuery);
+                MessageBox.Show("Item Type inserted successfully");   
+                
+                //Load data from data table
+                string Query = "select * from tblItemType";
+                GvItemType.DataSource = dll.DataReturn(Query);               
             }
         }
 
         private void txtItemType_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void FrmAddItemType_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'itemTypeSet.TblItemType' table. You can move, or remove it, as needed.
+            _ = tblItemTypeTableAdapter.Fill(itemTypeSet.TblItemType);
 
         }
     }
