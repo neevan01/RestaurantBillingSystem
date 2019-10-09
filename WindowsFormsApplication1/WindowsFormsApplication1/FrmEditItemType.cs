@@ -23,6 +23,7 @@ namespace WindowsFormsApplication1
 
         private void FrmEditItemType_Load(object sender, EventArgs e)
         {
+            btnSearch.Enabled = true;
             FillGridView();
         }
 
@@ -31,29 +32,7 @@ namespace WindowsFormsApplication1
             string viewQuery = "Select ItemType,ItemTypeID From tblItemType";            
             //Fill data grid view with data table
             dgvEditItemType.DataSource = dll.DataReturn(viewQuery);
-
-        }
-
-
-
-        private void BtnSearch_Click(object sender, EventArgs e)
-        {
-            //Search From Item Type Table             
-            string selectQuery = "Select * From tblItemType where ItemType='" + txtItemType.Text + "'";            
-            DataTable dt = dll.DataReturn(selectQuery);                      
-
-            if (dt.Rows.Count > 0)
-            {
-                txtItemTypeID.Text = dt.Rows[0]["ItemTypeId"].ToString();
-                btnUpdate.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show("Item Type Not Available");
-                DeleteAllTextBoxes();
-                btnUpdate.Enabled = false;
-            }
-        }
+        }       
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
@@ -80,21 +59,23 @@ namespace WindowsFormsApplication1
             txtNewItemType.Text = "";
         }
 
-        private void txtNewItemType_TextChanged(object sender, EventArgs e)
+        private void BtnSearch_Click_1(object sender, EventArgs e)
         {
+            string selectQuery = "Select * From tblItemType where ItemType='" + txtItemType.Text + "'";
+            DataTable dt = dll.DataReturn(selectQuery);
 
+            if (dt.Rows.Count > 0)
+            {
+                txtItemTypeID.Text = dt.Rows[0]["ItemTypeId"].ToString();
+                btnUpdate.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("Item Type Not Available");
+                DeleteAllTextBoxes();
+                btnUpdate.Enabled = false;
+            }
         }
-
-        private void txtItemTypeID_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgvEditItemType_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-    
     }
 }
 

@@ -43,43 +43,46 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 51);
+            this.label1.Location = new System.Drawing.Point(9, 78);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.Size = new System.Drawing.Size(87, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Item Name";
             // 
             // txtItemName
             // 
-            this.txtItemName.Location = new System.Drawing.Point(87, 51);
+            this.txtItemName.Location = new System.Drawing.Point(130, 78);
+            this.txtItemName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.ReadOnly = true;
-            this.txtItemName.Size = new System.Drawing.Size(100, 20);
+            this.txtItemName.Size = new System.Drawing.Size(148, 26);
             this.txtItemName.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 16);
+            this.label2.Location = new System.Drawing.Point(9, 25);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 13);
+            this.label2.Size = new System.Drawing.Size(62, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Item ID";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtItemID
             // 
-            this.txtItemID.Location = new System.Drawing.Point(87, 16);
+            this.txtItemID.Location = new System.Drawing.Point(130, 25);
+            this.txtItemID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtItemID.Name = "txtItemID";
-            this.txtItemID.Size = new System.Drawing.Size(100, 20);
+            this.txtItemID.Size = new System.Drawing.Size(148, 26);
             this.txtItemID.TabIndex = 1;
-            this.txtItemID.TextChanged += new System.EventHandler(this.txtItem_TextChanged);
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(202, 16);
+            this.btnSearch.Location = new System.Drawing.Point(303, 25);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.Size = new System.Drawing.Size(112, 35);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -87,13 +90,14 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(112, 88);
+            this.btnDelete.Location = new System.Drawing.Point(168, 135);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(112, 35);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // groupBox1
             // 
@@ -103,31 +107,36 @@
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.txtItemName);
             this.groupBox1.Controls.Add(this.txtItemID);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(18, 18);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(283, 141);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(424, 217);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
             // dgvDeleteItem
             // 
             this.dgvDeleteItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDeleteItem.Location = new System.Drawing.Point(302, 13);
+            this.dgvDeleteItem.Location = new System.Drawing.Point(453, 20);
+            this.dgvDeleteItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvDeleteItem.Name = "dgvDeleteItem";
-            this.dgvDeleteItem.Size = new System.Drawing.Size(246, 150);
+            this.dgvDeleteItem.RowHeadersWidth = 62;
+            this.dgvDeleteItem.Size = new System.Drawing.Size(369, 231);
             this.dgvDeleteItem.TabIndex = 4;
-            this.dgvDeleteItem.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDeleteItem_CellContentClick);
             // 
-            // frmDeleteItem
+            // FrmDeleteItem
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 169);
+            this.ClientSize = new System.Drawing.Size(840, 260);
             this.Controls.Add(this.dgvDeleteItem);
             this.Controls.Add(this.groupBox1);
-            this.Name = "frmDeleteItem";
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Name = "FrmDeleteItem";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Delete Item";
-            this.Load += new System.EventHandler(this.frmDeleteItem_Load);
+            this.Load += new System.EventHandler(this.FrmDeleteItem_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDeleteItem)).EndInit();

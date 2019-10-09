@@ -15,30 +15,21 @@ namespace WindowsFormsApplication1
 {
     public partial class FrmViewItem : Form
     {
+        public DataLayer dll = new DataLayer();
         public FrmViewItem()
         {
             InitializeComponent();
         }
-        private void frmViewItemType_Load(object sender, EventArgs e)
+        private void FrmViewItemType_Load(object sender, EventArgs e)
         {
-            fillGridView();
+            FillGridView();
         }
 
-        private void fillGridView()
+        private void FillGridView()
         {
-            
-           string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string viewQuery = "select ItemID,ItemType,Name,Description,Rate from tblItem join tblItemType on tblItem.ItemTypeID=tblItemType.ItemTypeID";
-            SqlCommand cmd = new SqlCommand(viewQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-
+            string viewQuery = "select ItemID,ItemType,ItemName,Description,Rate from tblItem join tblItemType on tblItem.ItemTypeID=tblItemType.ItemTypeID";          
             //Fill data grid view with data table
-            dgvItem.DataSource = dt;
+            dgvItem.DataSource = dll.DataReturn(viewQuery);
         }
 
       

@@ -13,15 +13,13 @@ namespace WindowsFormsApplication1
 {
     public partial class FrmAddItem : Form
     {
-        private object dt;
-        private object txtItemTypeID;
-
+        public DataLayer dll = new DataLayer();       
         public FrmAddItem()
         {
             InitializeComponent();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             if (cbItemType.Text == "")
             {
@@ -29,51 +27,28 @@ namespace WindowsFormsApplication1
             }
             else
             {
-
-                //Read ItemTypeId from table
-                //string connectionString = "Data Source=Neevan; Initial Catalog=Test; Integrated Security=True";
-                string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-                SqlConnection con = new SqlConnection(connectionString);
-                con.Open();
+                //Read ItemTypeId from table               
                 string selectQuery = "Select ItemTypeID From tblItemType where ItemType='" + cbItemType.Text +"'";
-                SqlCommand cmd = new SqlCommand(selectQuery, con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                con.Close();
-
-                float ID = float.Parse(dt.Rows[0]["ItemTypeID"].ToString());
-                string connectionString1 = "Data Source=Neevan; Initial Catalog=Test; Integrated Security=True";
-                //Insert Item Type to Database
-                //string connectionString1 = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-                SqlConnection con1 = new SqlConnection(connectionString1);
-                con1.Open();
-                string insertQuery = "Insert into tblItem values(" + ID + ",'" + txtItemName.Text + "','" + txtDescription.Text + "'," + txtRate.Text + ")";
-                SqlCommand cmd1 = new SqlCommand(insertQuery, con1);
-                cmd1.ExecuteNonQuery();
-                con1.Close();
-
+                DataTable dt = dll.DataReturn(selectQuery);
+                int ID = int.Parse(dt.Rows[0]["ItemTypeID"].ToString());
+                //Insert Item Type to Database  
+                string insertQuery = "Insert into TblItem values('" + txtItemName.Text + "', '" + ID + "', '" + txtDescription.Text + "', '" + Convert.ToInt32(txtRate.Text) + "')";                
+                dll.DbConn(insertQuery);               
                 MessageBox.Show("Item inserted successfully");
+                DeleteAllTextBoxes();
             }
         }
 
-        private void frmAddItem_Load(object sender, EventArgs e)
+        private void FrmAddItem_Load(object sender, EventArgs e)
         {
-            fillItemComboBox();
+            FillItemComboBox();
         }
 
-        void fillItemComboBox()
+        void FillItemComboBox()
         {
-            //Read Details from Item Type Table
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string selectQuery = "Select * From tblItemType";
-            SqlCommand cmd = new SqlCommand(selectQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
+            //Read Details from Item Type Table           
+            string selectQuery = "Select * From tblItemType";           
+            DataTable dt = dll.DataReturn(selectQuery);           
 
             //Fill Item Type Data to Combo Box
             foreach (DataRow dr in dt.Rows)
@@ -82,9 +57,11 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void cbItemType_SelectedIndexChanged(object sender, EventArgs e)
+        private void DeleteAllTextBoxes()
         {
-
+            txtDescription.Text = "";
+            txtItemName.Text = "";
+            txtRate.Text = "";
         }
     }
 }

@@ -14,60 +14,30 @@ namespace WindowsFormsApplication1
 {
     public partial class FrmEditItem : Form
     {
+        public DataLayer dll = new DataLayer();
         public FrmEditItem()
         {
-            InitializeComponent();
+            InitializeComponent();                      
         }
 
-        private void frmEditItem_Load(object sender, EventArgs e)
+        private void FrmEditItem_Load(object sender, EventArgs e)
         {
 
-            fillGridView();
+            FillGridView();
         }
 
-        private void fillGridView()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string viewQuery = "Select ItemID,Name,Rate From tblItem";
-            SqlCommand cmd = new SqlCommand(viewQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            cmd.ExecuteNonQuery();
-            con.Close();
-
+        private void FillGridView()
+        {           
+            string viewQuery = "Select * From tblItem";                     
             //Fill data grid view with data table
-            dgvEditItem.DataSource = dt;
+            dgvEditItem.DataSource = dll.DataReturn(viewQuery);
         }
-
-      
-
-
-        private void label2_Click(object sender, EventArgs e)
+        
+        private void BtnSearch_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void txtItemID_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            //Search From Item Table 
-            string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            string selectQuery = "Select * From tblItem where Name='" + txtItem.Text + "'";
-            SqlCommand cmd = new SqlCommand(selectQuery, con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-
+            //Search From Item Table            
+            string selectQuery = "Select ItemName,Rate From tblItem where ItemName='" + txtItem.Text + "'";
+            DataTable dt = dll.DataReturn(selectQuery);            
             if (dt.Rows.Count > 0)
             {
                 txtItemID.Text = dt.Rows[0]["ItemID"].ToString();
@@ -80,31 +50,21 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            if (txtNewItem.Text == "")
+            if (txtNewItem.Text == ""|| txtRate.Text==""||txtItem.Text=="")
             {
-                MessageBox.Show("New Item should not be blank");
+                MessageBox.Show("Fields should not be blank");
             }
             else
             {
-                //Update Item Type Name in Item Type Table 
-                string connectionString = ConfigurationManager.ConnectionStrings["DemoC"].ToString();
-                SqlConnection con = new SqlConnection(connectionString);
-                con.Open();
-                string updateQuery = "Update tblItem set Name='" + txtNewItem.Text + "' where ItemID='" + txtItemID.Text + "'";
-                SqlCommand cmd = new SqlCommand(updateQuery, con);
-                string updateQuery1 = "Update tblItem set Rate='" + txtRate.Text + "' where ItemID='" + txtItemID.Text + "'";
-                SqlCommand cmd1 = new SqlCommand(updateQuery1, con);
-                cmd.ExecuteNonQuery();
-                cmd1.ExecuteNonQuery();
-                con.Close();
-
+                //Update Item Type Name in Item Type Table                
+                string updateQuery = "Update tblItem set ItemName='" + txtNewItem.Text + "', Rate='" + txtRate.Text + "'  where ItemID='" + txtItemID.Text + "'";
+                dll.DbConn(updateQuery);
                 MessageBox.Show("Item Type Updated Successfully");
-                btnUpdate.Enabled = true;
+                btnUpdate.Enabled = false;
                 DeleteAllTextBoxes();
-                fillGridView();
-
+                FillGridView();
             }
         }
 
@@ -113,11 +73,6 @@ namespace WindowsFormsApplication1
             txtItem.Text="";
             txtItemID.Text = "";
             txtNewItem.Text = "";
-        }
-
-        private void dgvEditItem_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        }       
     }
 }
